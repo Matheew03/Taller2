@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
+@Table(name = "carrito")
 public class Carrito {
 
     @Id
@@ -18,7 +19,11 @@ public class Carrito {
     @Pattern(regexp = "ACTIVO|CERRADO", message = "El estado debe ser ACTIVO o CERRADO")
     private String estado;
 
-    // Getters y Setters
+
+    @OneToOne
+    @JoinColumn(name = "cliente_id", unique = true)
+    private Cliente cliente;
+
     public Long getId() {
         return id;
     }
@@ -43,4 +48,11 @@ public class Carrito {
         this.estado = estado;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

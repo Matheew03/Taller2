@@ -2,6 +2,7 @@ package com.itsqmet.taller2.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -26,7 +27,15 @@ public class Cliente {
     @Pattern(regexp = "\\d{10}", message = "El teléfono debe tener 10 dígitos")
     private String telefono;
 
-    // Getters y Setters
+
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private Carrito carrito;
+
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Compra> compras;
+
+
     public Long getId() {
         return id;
     }
@@ -65,5 +74,22 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 }

@@ -2,6 +2,7 @@ package com.itsqmet.taller2.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import java.util.List;
 
 @Entity
 public class Videojuego {
@@ -25,7 +26,13 @@ public class Videojuego {
     @Min(value = 0, message = "El stock no puede ser negativo")
     private Integer stock;
 
-    // Getters y Setters
+
+
+
+    @ManyToMany(mappedBy = "videojuegos")
+    private List<Compra> compras;
+
+ 
     public Long getId() {
         return id;
     }
@@ -64,5 +71,14 @@ public class Videojuego {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 }

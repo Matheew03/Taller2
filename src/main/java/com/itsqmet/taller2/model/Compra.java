@@ -3,6 +3,7 @@ package com.itsqmet.taller2.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Compra {
@@ -23,6 +24,21 @@ public class Compra {
     @Pattern(regexp = "EFECTIVO|TARJETA|TRANSFERENCIA",
             message = "Método de pago debe ser EFECTIVO, TARJETA o TRANSFERENCIA")
     private String metodoPago;
+
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "compra_videojuego",
+            joinColumns = @JoinColumn(name = "compra_id"),
+            inverseJoinColumns = @JoinColumn(name = "videojuego_id")
+    )
+    private List<Videojuego> videojuegos;
+
 
     public Long getId() {
         return id;
@@ -54,5 +70,22 @@ public class Compra {
 
     public void setMetodoPago(String metodoPago) {
         this.metodoPago = metodoPago;
+    }
+
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Videojuego> getVideojuegos() {
+        return videojuegos;
+    }
+
+    public void setVideojuegos(List<Videojuego> videojuegos) {
+        this.videojuegos = videojuegos;
     }
 }
