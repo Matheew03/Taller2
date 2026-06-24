@@ -2,6 +2,7 @@ package com.itsqmet.taller2.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Entity
@@ -29,10 +30,12 @@ public class Cliente {
 
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Carrito carrito;
 
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Compra> compras;
 
 
@@ -75,7 +78,6 @@ public class Cliente {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
 
     public Carrito getCarrito() {
         return carrito;
